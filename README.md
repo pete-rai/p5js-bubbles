@@ -5,12 +5,12 @@ see demos of this and much more.
 
 ## Overview
 
-A bubbles visualisation for p5.js. A fun way to represent quantative data as set of bubbles
+A bubbles visualisation for p5js. A fun way to represent quantitative data as set of bubbles
 that grow, move and collide on the screen.
 
 ### Demos and Example Usage
 
-Here are a couple of examples that you can use to understand how the visualisation looks in use:
+Here are a couple of examples that you can use to understand how the visualisation looks:
 
 * Click [here](https://pete-rai.github.io/p5js-bubbles/sample-bubbles.html?movies) to see an example based on _Top Grossing Movies_ (inflation adjusted)
 * Click [here](https://pete-rai.github.io/p5js-bubbles/sample-bubbles.html?populations) to see an example based on _Country by Population_ (2016 figures)
@@ -31,11 +31,11 @@ in the changes; that way everyone can benefit from it.
 
 ### Dependencies
 
-This plug relies on [p5.js](https://p5js.org/) (version 0.5.8+)
+This plug relies on [p5js](https://p5js.org/) (version 0.5.8+)
 
 ## Example Usage
 
-Its really easy to use the Bubbles visualisation in your own project. You just need to include the script (after the main p5.js script) then declare one instance of the Bubbles class and point it to a dataset. The process is all documented below, or just take a look at one of the samples listed above.
+Its really easy to use the Bubbles visualisation in your own project. You just need to include the script (after the main p5js script) then declare one instance of the Bubbles class and point it to a dataset. The process is all documented below, or just take a look at one of the samples listed above.
 
 ### Declaring an Instance
 
