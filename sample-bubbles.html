@@ -1,0 +1,40 @@
+<!--
+ * p5.js bubbles visualization
+ *
+ * https://github.com/pete-rai/p5js-bubbles
+ *
+ * This file is a SAMPLE PAGE ONLY
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>p5js-bubbles | sample |&nbsp;</title>
+    <style  type="text/css"> body { padding: 0px; margin: 0px; overflow: hidden; }  </style>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.8/p5.min.js"></script>
+    <script type="text/javascript" src="bubbles.p5.js"></script>
+    <script type="text/javascript">
+
+      var movies = window.location.search == "?movies";
+
+      var datasource  = movies ? "sample-topmovies.json" : "sample-populations.json";
+      document.title += movies ? "top grossing movies"   : "country populations";
+
+      function selected (key, bubble)  // a bubble has been double-clicked
+      {
+          window.open ("https://en.wikipedia.org/wiki/" + key, "_new");
+      }
+
+      function tooltip (key, bubble)  // return the tooltip text, null or empty string for none
+      {
+          return movies ? bubble.name + " (" + bubble.year + ") has grossed $" + bubble.count.toLocaleString ('en') + ",000" :
+                          bubble.name + " has " + bubble.count.toLocaleString ('en') + " people";
+      }
+
+      var bubbles = new Bubbles (datasource, null, selected, tooltip);
+
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
