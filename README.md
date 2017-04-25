@@ -162,18 +162,46 @@ There is no need to understand the background maths and algorithms to use the bu
 
 #### Proportionality of Area
 
-TODO
+In the visualisation, the _area_ of the bubbles is in proportion to the data counts specified in the source data document. I've seen other similar works that scale the _radius_ instead. That is, of course, dead wrong - as it over emphases larger data counts. Given we are presenting our output in a 2D plane, then _area_ is clearly the right scaling domain. Similarly, if you do something like this on a VR headset, then you'd need to scale on volume.
+
+![bubble scaling](https://github.com/pete-rai/p5js-bubbles/doc/scale.png)
+
+As you can see in the diagram above, it's fairly easy to calculate the required radius given a fixed area.
 
 #### Scaling and Crowdedness of Bubbles
 
-TODO
+How do we scale the bubbles for maximal effect? We start by looking at the largest count for all the elements in the source data. We then allocate that as 1000 'units'. We then scale every other element, in proportion to that 1000-unit largest bubble. Bubbles smaller than 1 (in this scale) are rounded up to 1 unit. These units are logical values only, on each draw we scale the units into the available screen real-estate.
+
+So hence the bubbles are re-scaled on every frame tick. Why? So that it is maximally responsive to resolution changes. Shrink and grow the window whilst the visualisation is running to see the effect. The bubbles don't immediately grow to the end size; instead the source data is filtered-in, a frame tick at a time. This gives a more dynamic experience, allowing the bubbles to slowly take on their end sizes.
+
+In order to scale to available screen real-estate, we start by calculating the available space and then we factor by a 'crowdedness' scalar. The high this scalar, the more 'bunched up' the bubbles will be. The optimal value for this is pretty much the ratio of the area of a circle to its circumscribed square (&pi; / 4 - see below). Essentially handling the difficulties in tessellating circles as opposed to tessellating squares.
+
+![circumscribed square](https://github.com/pete-rai/p5js-bubbles/doc/crowdedness.png)
+
+You can change the 'crowdedness' scalar as it’s just a constant at the top of the file. Generally, the bigger your screen real-estate, the more you will need to play around with this value to get best results.
 
 #### Collisions of Bubbles
 
-TODO
+Collisions are always fun! On every frame tick we check if any bubble has collided with any other bubble, using the technique below:
+
+![collisions](https://github.com/pete-rai/p5js-bubbles/doc/collide.png)
+
+This is also the code that gets executed when you drag a bubble around and it bumps into others and pushes them away. It amazing that this high-school trig can lead to such realistic feeling movement. There is some deeper truth in that.
 
 #### Fitting Text Inside Circles
 
-TODO
+Buried in this script is a neat way to optimise the fitting of text within a circle with the largest font.
 
-_– [Pete Rai](http://www.rai.org.uk/)_
+In order to make life easier, we start by finding the _inscribed square_ within the circle; then we find the largest text that fits within that square.
+
+![line break combinations](https://github.com/pete-rai/p5js-bubbles/doc/clauses.png)
+
+Why the inscribed square? Why not the radius of the circle? Well the radius it a more tempting space, as it larger - but it's only better for the horizontal and vertical lateral. In the diagonals, the text could well 'poke out' the bounds of the circle if we just use the radius. In fact, using the radius is the same as using the _circumscribed square_ (as described earlier when we spoke about crowdedness). In fact, using square at all it a shortcut. If you are better than me at geometry, please do have a go treating the text bounds as the true circular circumference.
+
+Now we have the bounding box, we work out all the ways we can line break the phrases to fit into the box (in the code these are call clauses).
+
+![inscribed square](https://github.com/pete-rai/p5js-bubbles/doc/inscribed.png)
+
+As you can see in the code, the best way to get the full list of line broken strings is to use a recursive function. So finally, we brute force all the phrases, for all the fonts to find the one that fills the bounding box with the greatest area. That’s expensive (text width measuring costs many machine cycles), but there is a simple cache so that it is only done once per bubble.
+
+_– [Pete Rai](https://pete-rai.github.io/)_
