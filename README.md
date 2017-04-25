@@ -5,12 +5,12 @@ see demos of this and much more.
 
 ## Overview
 
-A bubbles visualisation for p5js. A fun way to represent quantitative data as set of bubbles
+A bubbles visualization for p5js. A fun way to represent quantitative data as set of bubbles
 that grow, move and collide on the screen.
 
 ### Demos and Example Usage
 
-Here are a couple of examples that you can use to understand how the visualisation looks:
+Here are a couple of examples that you can use to understand how the visualization looks:
 
 * Click [here](https://pete-rai.github.io/p5js-bubbles/sample-bubbles.html?movies) to see an example based on _Top Grossing Movies_ (inflation adjusted)
 * Click [here](https://pete-rai.github.io/p5js-bubbles/sample-bubbles.html?populations) to see an example based on _Country by Population_ (2016 figures)
@@ -26,7 +26,7 @@ This software is released with the [karmaware](https://pete-rai.github.io/karmaw
 ### Disclaimer
 
 I've done best efforts testing on a range of modern browsers. If you find any problems,
-do let me know by raising an issue [here](https://github.com/p5js-bubbles/pete-rai.github.io/issues). Better still, create a fix for the problem too and drop
+do let me know by raising an issue [here](https://github.com/pete-rai/p5js-bubbles/issues). Better still, create a fix for the problem too and drop
 in the changes; that way everyone can benefit from it.
 
 ### Dependencies
@@ -35,11 +35,11 @@ This plug relies on [p5js](https://p5js.org/) (version 0.5.8+)
 
 ## Example Usage
 
-Its really easy to use the Bubbles visualisation in your own project. You just need to include the script (after the main p5js script) then declare one instance of the Bubbles class and point it to a dataset. The process is all documented below, or just take a look at one of the samples listed above.
+Its really easy to use the Bubbles visualization in your own project. You just need to include the script (after the main p5js script) then declare one instance of the Bubbles class and point it to a dataset. The process is all documented below, or just take a look at one of the samples listed above.
 
 ### Declaring an Instance
 
-In order to use this script, you *must* declare one instance of the Bubbles class in your code called 'bubbles' as shown below:
+In order to use this script, you *must* declare one instance of the Bubbles class in your code (it must be called 'bubbles') as shown below:
 
 ```html
  <script>
@@ -55,7 +55,7 @@ or more fully:
  </script>
 ```
 
-The parameters for the Bubbles class is as follows:
+The parameters for the Bubbles class are as follows:
 
 | Pos | Param | Description | Notes |
 | --- | --- | --- | --- |
@@ -77,7 +77,7 @@ The "name" is what is displayed inside each bubble and the "count" governs the b
 }
 ```
 
-You can also include other data in the JSON. These won't be read by Bubbles, but will be passed to your callback functions on-select and tooltip. For example, the 'year' data item in the example below:
+You can also include other data in the JSON structure. These won't be read by Bubbles, but will be passed to your callback functions on-select and tooltip. For example, see the 'year' data item in the example below:
 
 ```json
 {
@@ -87,11 +87,11 @@ You can also include other data in the JSON. These won't be read by Bubbles, but
 }
 ```
 
-In these examples and the project samples, we only show static data. In a real system, you could dynamically generate your dataset by reading values of a backing store or database.
+In these examples and the project samples, we only show static JSON data. In a real system, you could dynamically generate your JSON dataset by reading values from a backing store or database.
 
 ### Modifiable Constants
 
-There are several constants at the top of the script, which you can modify in order to change the behaviour and appearance.
+There are several constants at the top of the main script file, which you can modify in order to change the behavior and appearance of the visualization.
 
 #### Fonts
 
@@ -99,10 +99,10 @@ The following constants control the font inside the bubbles:
 
 | Constant | Default | Unit | Description |
 | --- | --- | --- | --- |
-| FONT_FACE | "Tahoma" | string | A browser safe font (btw Tahoma is a good choice as its quite narrow) |
-| FONT_HEAD | 24 | point | The Size of page heading |
-| FONT_MAX | 36 | point | The Largest allowed font |
-| FONT_MIN | 8 | point | The Smallest allowed font |
+| FONT_FACE | Tahoma | string | A browser safe font (btw Tahoma is a good choice as its quite narrow) |
+| FONT_HEAD | 24 | point | The size of page heading |
+| FONT_MAX | 36 | point | The largest allowed font |
+| FONT_MIN | 8 | point | The smallest allowed font |
 | FONT_STEP | 2 | >=&nbsp;1 | The font size steps, from big to small |
 | FONT_PAD | 8 | pixels | Some text padding within the bubble |
 
@@ -129,9 +129,9 @@ The following constants control factors that influence appearance:
 | VIZ_RIM_FRACTION | 20 | >=&nbsp;1 | The fraction of each bubble that is the rim, bigger num = smaller rim |
 | VIZ_DBL_CLICK | 500 | millsecs | The time window between which two clicks becomes a double click |
 | VIZ_ALPHA_DEPTH | 0.60 | >0&nbsp;&&nbsp;<=1 | The depth of fading of small bubbles, bigger num = more fading |
-| VIZ_CROWDEDNESS | 0.70 | >&nbsp;0 | How crowded the world space is, bigger = more crowded (0.78 = &Pi;/4 is the ratio area of square to circle, which is about optimal) |
+| VIZ_CROWDEDNESS | 0.70 | >&nbsp;0 | How crowded the world space is, bigger = more crowded (0.78 = &pi;/4 is the ratio area of square to circle, which is about optimal) |
 | VIZ_FRAME_RATE | 50 | >1&nbsp;&&nbsp;<&nbsp;60 | The frame rate and hence smoothness of animation, bigger = smoother, but slower overall |
-| VIZ_FONT_RECALC | 10 | >=&nbsp;1 | How much radius must change before a font recalculation (prevents font 'flickering') |
+| VIZ_FONT_RECALC | 10 | >=&nbsp;1 | How much the radius must change before a font recalculation (prevents font 'flickering') |
 
 #### Tooltips
 
@@ -154,25 +154,25 @@ The following constants control bubble movement and interaction (change with car
 | PHYS_REBOUND | 0.75 | 0.0&nbsp;to&nbsp;1.0 | The bounce velocity factor of hitting the world boundary |
 | PHYS_FRICTION | 0.80 | 0.0&nbsp;to&nbsp;1.0 | The velocity drag of hitting the world boundary |
 | PHYS_BIRTH_SPEED | 4.00 | >&nbsp;0.0 | The intial velocity for new bubbles |
-| PHYS_REST_JIGGLE | 0.02 | >=&nbsp;0.0 | The restlessness for existing bubbles (zero means they will eventually come to rest) |
+| PHYS_REST_JIGGLE | 0.02 | >=&nbsp;0.0 | The restlessness for existing bubbles (zero means they will eventually come to a complete rest) |
 
-### Background
+## Background
 
-There is no need to understand the background maths and algorithms to use the bubbles visualisation, however for those who are interested I have detailed some aspects here.
+There is no need to understand the background maths and algorithms to use the bubbles visualization, however for those who are interested I have detailed some aspects here.
 
-#### Proportionality of Area
+### Proportionality of Area
 
-In the visualisation, the _area_ of the bubbles is in proportion to the data counts specified in the source data document. I've seen other similar works that scale the _radius_ instead. That is, of course, dead wrong - as it over emphases larger data counts. Given we are presenting our output in a 2D plane, then _area_ is clearly the right scaling domain. Similarly, if you do something like this on a VR headset, then you'd need to scale on volume.
+In the visualization, the _area_ of the bubbles is in proportion to the data counts specified in the source data document. I've seen other similar works that scale the _radius_ instead. That is, of course, dead wrong - as it over emphases larger data counts. Given we are presenting our output in a 2D plane, then _area_ is clearly the right scaling domain. Similarly, if you do something like this on a VR headset, then you'd need to scale on volume.
 
 ![bubble scaling](https://github.com/pete-rai/p5js-bubbles/raw/master/doc/scale.png)
 
 As you can see in the diagram above, it's fairly easy to calculate the required radius given a fixed area.
 
-#### Scaling and Crowdedness of Bubbles
+### Scaling and Crowdedness of Bubbles
 
 How do we scale the bubbles for maximal effect? We start by looking at the largest count for all the elements in the source data. We then allocate that as 1000 'units'. We then scale every other element, in proportion to that 1000-unit largest bubble. Bubbles smaller than 1 (in this scale) are rounded up to 1 unit. These units are logical values only, on each draw we scale the units into the available screen real-estate.
 
-So hence the bubbles are re-scaled on every frame tick. Why? So that it is maximally responsive to resolution changes. Shrink and grow the window whilst the visualisation is running to see the effect. The bubbles don't immediately grow to the end size; instead the source data is filtered-in, a frame tick at a time. This gives a more dynamic experience, allowing the bubbles to slowly take on their end sizes.
+So hence the bubbles are re-scaled on every frame tick. Why? So that it is maximally responsive to resolution changes. Shrink and grow the window whilst the visualization is running to see the effect. The bubbles don't immediately grow to the end size; instead the source data is filtered-in, a frame tick at a time. This gives a more dynamic experience, allowing the bubbles to slowly take on their end sizes.
 
 In order to scale to available screen real-estate, we start by calculating the available space and then we factor by a 'crowdedness' scalar. The high this scalar, the more 'bunched up' the bubbles will be. The optimal value for this is pretty much the ratio of the area of a circle to its circumscribed square (&pi; / 4 - see below). Essentially handling the difficulties in tessellating circles as opposed to tessellating squares.
 
@@ -180,7 +180,7 @@ In order to scale to available screen real-estate, we start by calculating the a
 
 You can change the 'crowdedness' scalar as it’s just a constant at the top of the file. Generally, the bigger your screen real-estate, the more you will need to play around with this value to get best results.
 
-#### Collisions of Bubbles
+### Collisions of Bubbles
 
 Collisions are always fun! On every frame tick we check if any bubble has collided with any other bubble, using the technique below:
 
@@ -188,7 +188,7 @@ Collisions are always fun! On every frame tick we check if any bubble has collid
 
 This is also the code that gets executed when you drag a bubble around and it bumps into others and pushes them away. It amazing that this high-school trig can lead to such realistic feeling movement. There is some deeper truth in that.
 
-#### Fitting Text Inside Circles
+### Fitting Text Inside Circles
 
 Buried in this script is a neat way to optimise the fitting of text within a circle with the largest font.
 
