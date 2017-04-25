@@ -15,51 +15,7 @@
  *
  * == IF YOU USE THIS SCRIPT, FEEL FREE TO DROP ME LINE pete (at) rai.org.uk ==
  *
- * This is a p5.js script, so you need to include that library first.
- * You can grab the latest one by going here https://p5js.org/download/
- *
- * In order to use this script, you *must* declare one instance of the Bubbles
- * class in your code called 'bubbles' as shown below:
- *
- *  <script>
- *    var bubbles = new Bubbles ("mydata.json");
- *  </script>
- *
- * or
- *
- *  <script>
- *    var bubbles = new Bubbles ("mydata.json", "hosting-control", onselect, tooltip);
- *  </script>
- *
- *  1. data-source            : the url for the json list of data items
- *  2. parent-control         : id of the hosting parent control (null to fill the whole HTML body)
- *  3. onselect (key, bubble) : the callback function for when a bubble is double-clicked (null for no action)
- *  4. tooltip  (key, bubble) : the callback function to return the bubble tooltip (null for no tooltip)
- *
- * The data returned from the data-source must be a json structure that (at least)
- * has a "key", a "name" and a "count". The "name" is what is displayed inside
- * each bubble and the "count" governs it's radius.
- *
- * {
- *     "foo1": { "name": "bar1", "count": 1000    },
- *     "foo2": { "name": "bar2", "count":  750    },
- *     "foo3": { "name": "bar3", "count":  123.45 }
- * }
- *
- * You can also include other data in the json. These won't be read by bubbles,
- * but will be passed to your callback functions on-select and tooltip. For
- * example see the 'year' data item in the example below:
- *
- * {
- *     "Forrest_Gump"  : { "name": "Forrest Gump" , "count": 680016, "year": 1994 },
- *     "The_Godfather" : { "name": "The Godfather", "count": 682680, "year": 1972 },
- *     "Jurassic_Park" : { "name": "Jurassic Park", "count": 795124, "year": 1993 },
- * }
- *
- * Also, see below for modifiable constants that allow you to customise the
- * behaviour and appearance.
- *
- * Have Fun! - Pete Rai
+ * == VISIT THE GITHUB PAGE FOR EXTENSIVE USAGE NOTES ===
  */
 
 'use strict';
