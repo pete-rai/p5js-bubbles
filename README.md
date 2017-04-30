@@ -1,6 +1,6 @@
 # p5js-bubbles
 
-> Visit my [GitHub Pages site](https://pete-rai.github.io/) to get in touch or to
+> Visit my [Blog](http://www.rai.org.uk) to get in touch or to
 see demos of this and much more.
 
 ## Overview
@@ -206,4 +206,4 @@ As you can see in the code, the best way to get the full list of line-broken str
 
 So finally, we brute-force all the clauses, for all the font sizes in order to find the one that fills the bounding box with the greatest area. That is expensive (text width measuring costs many machine cycles), but there is also a simple cache so that it is only done once per bubble.
 
-_– [Pete Rai](https://pete-rai.github.io/)_
+_– [Pete Rai](http://www.rai.org.uk)_
