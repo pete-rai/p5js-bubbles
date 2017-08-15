@@ -106,7 +106,14 @@ function Bubbles (_source, _parent, _onselect, _tiptext)
 
     this.preload = function ()
     {
-        this.datums = loadJSON (this.source);  // async loads the source data from external source
+        if (typeof this.source === 'string')
+        {
+            this.datums = loadJSON (this.source);  // async loads the source data from external source - calls setup when ready
+        }
+        else
+        {
+            this.datums = this.source;  // an existing array from the caller
+        }
     }
 
     // one time intialisation code, called once at the start by processing
