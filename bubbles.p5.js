@@ -96,7 +96,6 @@ function Bubbles (_source, _parent, _onselect, _tiptext)
 
     this.dragpos     = new Point (0, 0);        // the position being grabbed on a mouse drag
     this.world       = new Rect  (0, 0, 0, 0);  // the rectangle of the enclosing world space
-    this.heading     = new Rect  (0, 0, 0, 0);  // the rectangle that encloses the heading
 
     this.source      = _source;    // the url for the list of data items
     this.parent      = _parent;    // selector for the parent hosting control (can be null)
