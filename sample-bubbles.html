@@ -16,23 +16,65 @@
     <script type="text/javascript" src="bubbles.p5.js"></script>
     <script type="text/javascript">
 
-      var movies = window.location.search == "?movies";
+// this is an example of bubble data in a local array
 
-      var datasource  = movies ? "sample-topmovies.json" : "sample-populations.json";
-      document.title += movies ? "top grossing movies"   : "country populations";
+var g20 = {
+    "US": {"name": "United States", "count": 18569},
+    "CN": {"name": "China", "count": 11218},
+    "JP": {"name": "Japan", "count": 4938},
+    "DE": {"name": "Germany", "count": 3466},
+    "UK": {"name": "United Kingdom", "count": 2629},
+    "FR": {"name": "France", "count": 2463},
+    "IN": {"name": "India", "count": 2256},
+    "IT": {"name": "Italy", "count": 1851},
+    "BR": {"name": "Brazil", "count": 1799},
+    "CA": {"name": "Canada", "count": 1529},
+    "KR": {"name": "South Korea", "count": 1411},
+    "RS": {"name": "Russia", "count": 1281},
+    "AU": {"name": "Australia", "count": 1259},
+    "ES": {"name": "Spain", "count": 1233},
+    "MX": {"name": "Mexico", "count": 1046},
+    "ID": {"name": "Indonesia", "count": 932},
+    "TR": {"name": "Turkey", "count": 857},
+    "NL": {"name": "Netherlands", "count": 771},
+    "CH": {"name": "Switzerland", "count": 660},
+    "SA": {"name": "Saudi Arabia", "count": 640}};
+
+      if  (window.location.search == "?movies")
+      {
+          data  = "sample-topmovies.json";
+          title = "top grossing movies";
+          info  = "https://en.wikipedia.org/wiki/";
+          tip   = function (bubble) { return bubble.name + " (" + bubble.year + ") has grossed $" + bubble.count.toLocaleString ('en') + ",000"; };
+      }
+      else if  (window.location.search == "?populations")
+      {
+          data  = "sample-populations.json";
+          title = "country populations";
+          info  = "https://en.wikipedia.org/wiki/";
+          tip   = function (bubble) { return bubble.name + " has " + bubble.count.toLocaleString ('en') + " people"; };
+      }
+      else
+      {
+          data  = g20;
+          title = "countries by gdp";
+          info  = "https://www.google.co.uk/maps/place/";
+          tip   = function (bubble) { return bubble.name + " has a GDP of $" + bubble.count.toLocaleString ('en') + ",000,000,000";};
+      }
+
+      document.title += title;
 
       function selected (key, bubble)  // a bubble has been double-clicked
       {
-          window.open ("https://en.wikipedia.org/wiki/" + key, "_new");
+          window.open (info + key, "_new");
       }
 
       function tooltip (key, bubble)  // return the tooltip text, null or empty string for none
       {
-          return movies ? bubble.name + " (" + bubble.year + ") has grossed $" + bubble.count.toLocaleString ('en') + ",000" :
-                          bubble.name + " has " + bubble.count.toLocaleString ('en') + " people";
+          return tip (bubble);
       }
 
-      var bubbles = new Bubbles (datasource, null, selected, tooltip);
+      var bubbles = new Bubbles (data, null, selected, tooltip);
 
     </script>
   </head>
