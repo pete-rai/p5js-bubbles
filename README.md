@@ -129,10 +129,14 @@ The CSS is evaluated on every draw request, so you can even change the CSS dynam
 
 You can specify any subset of these CSS selectors - any that you don't specify will fall back to the default color scheme.
 
+#### Per Bubble Coloring
+
+If you want to specify a different color for specific (or even each) bubble, you can do that by including CSS information within the source data.
+
 ```json
 {
     "DE": {"name": "Germany", "count": 3466},
-    "UK": {"name": "United Kingdom", "count": 2629,   /* united kingdom shows an example of per bubble colors specified within the source data */
+    "UK": {"name": "United Kingdom", "count": 2629,  
         "css": {
             ".bubbles_bubble":       { "background-color": "DarkSeaGreen", "color": "#006400"},
             ".bubbles_bubble:hover": { "background-color": "#000" , "color": "hotpink" } } },
@@ -156,11 +160,6 @@ The following is the precedence of specified color on a per selector basis:
 1. Per bubble colors within the source data
 2. Any CSS that you have included
 3. The default coloring scheme
-
-#### Per Bubble Coloring
-
-If you want to specify a different color for specific (or even each) bubble, you can do that by including CSS information within the source data.
-
 
 ### Modifiable Constants
 
