@@ -83,36 +83,54 @@ function windowResized () { if (typeof bubbles !== "undefined") bubbles.windowRe
 
 function Bubbles (_source, _parent, _onselect, _tiptext)
 {
-    this.num_bubbles = 0;     // the total number of drawn bubbles
-    this.max_occur   = 1;     // max current occurences for any bubbles
-    this.all_occur   = 1;     // total occurences for all bubbles
-    this.last_move   = 0;     // time of last mouse movement - for tooltip delays
-    this.last_click  = 0;     // time of last mouse click - for double click detection
-    this.lines       = [];    // lines of source data
-    this.datums      = [];    // the source data items loaded from external location
-    this.bubbles     = {};    // the array of bubbles
-    this.last_over   = "";    // last bubble under the mouse, if any
-    this.dragging    = "";    // bubble being dragged by mouse, if any
+    this.source   = _source;    // the url for the list of data items
+    this.parent   = _parent;    // selector for the parent hosting control (can be null)
+    this.onselect = _onselect;  // the "function (key, bubble)" called when a bubble is clicked (can be null)
+    this.tiptext  = _tiptext;   // the "function (key, bubble)" used to generate tooltip text (can be null)
 
-    this.dragpos     = new Point (0, 0);        // the position being grabbed on a mouse drag
-    this.world       = new Rect  (0, 0, 0, 0);  // the rectangle of the enclosing world space
+    // initialise the class level variables
 
-    this.source      = _source;    // the url for the list of data items
-    this.parent      = _parent;    // selector for the parent hosting control (can be null)
-    this.onselect    = _onselect;  // the "function (key, bubble)" called when a bubble is clicked (can be null)
-    this.tiptext     = _tiptext;   // the "function (key, bubble)" used to generate tooltip text (can be null)
+    this.init = function ()
+    {
+        this.num_bubbles = 0;     // the total number of drawn bubbles
+        this.max_occur   = 1;     // max current occurences for any bubbles
+        this.all_occur   = 1;     // total occurences for all bubbles
+        this.last_move   = 0;     // time of last mouse movement - for tooltip delays
+        this.last_click  = 0;     // time of last mouse click - for double click detection
+        this.lines       = [];    // lines of source data
+        this.datums      = [];    // the source data items loaded from external location
+        this.bubbles     = {};    // the array of bubbles
+        this.last_over   = "";    // last bubble under the mouse, if any
+        this.dragging    = "";    // bubble being dragged by mouse, if any
 
-    // one time preload code, called once at the start by processing and used to load up async datasets
+        this.dragpos     = new Point (0, 0);        // the position being grabbed on a mouse drag
+        this.world       = new Rect  (0, 0, 0, 0);  // the rectangle of the enclosing world space
+    }
+
+    // live restart the animation with new data - normally achieved by just loading a new page
+
+    this.restart = function (_source)
+    {
+        this.source = _source;
+        this.preload ();
+        this.windowResized ();
+    }
+
+    // one time preload code, called at the start by processing or by restart - used to load up datasets
 
     this.preload = function ()
     {
-        if (typeof this.source === 'string')
+        this.init ();
+        var self = this;
+
+        if (typeof this.source === 'string')  // assume its a url
         {
-            this.datums = loadJSON (this.source);  // async loads the source data from external source - calls setup when ready
+            this.datums = loadJSON (this.source, function () { self.prepare (); });  // async loads the source data from external source
         }
         else
         {
             this.datums = this.source;  // an existing array from the caller
+            this.prepare ();
         }
     }
 
@@ -132,9 +150,14 @@ function Bubbles (_source, _parent, _onselect, _tiptext)
             canvas.parent (this.parent);
         }
 
-        this.windowResized ();
+        this.windowResized ();  // sets the canvas size and world rect size
         loop ();
+    }
 
+    // prepares the data from the source for processing as bubbles
+
+    this.prepare = function ()
+    {
         // by now the preloads are complete and the data is loaded into this.datums
         // we expand the counts into an item per line in this.lines
 
