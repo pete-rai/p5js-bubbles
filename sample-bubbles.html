@@ -32,7 +32,10 @@ var g20 = {
     "CN": {"name": "China", "count": 11218},
     "JP": {"name": "Japan", "count": 4938},
     "DE": {"name": "Germany", "count": 3466},
-    "UK": {"name": "United Kingdom", "count": 2629},
+    "UK": {"name": "United Kingdom", "count": 2629,   /* united kingdom shows an example of per bubble colours specified within the source data */
+           "css": {
+               ".bubbles_bubble":       { "background-color": "DarkSeaGreen", "color": "#006400"},
+               ".bubbles_bubble:hover": { "background-color": "#000" , "color": "hotpink" } } },
     "FR": {"name": "France", "count": 2463},
     "IN": {"name": "India", "count": 2256},
     "IT": {"name": "Italy", "count": 1851},

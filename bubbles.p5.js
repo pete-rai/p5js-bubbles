@@ -514,17 +514,47 @@ function Bubble (_key, _name, _data, _tip)
 
         if (hilight)
         {
-            clr_back =  color (getStyle ("background-color", ".bubbles_bubble:hover", CLR_OVER));
-            clr_fore = acolor (getStyle ("color"           , ".bubbles_bubble:hover", CLR_HOVR), alpha);
+            clr_back =  color (this.palette ("background-color", ".bubbles_bubble:hover", CLR_OVER));
+            clr_fore = acolor (this.palette ("color"           , ".bubbles_bubble:hover", CLR_HOVR), alpha);
         }
         else
         {
-            clr_back =  color (getStyle ("background-color", ".bubbles_bubble", CLR_BALL));
-            clr_fore = acolor (getStyle ("color"           , ".bubbles_bubble", CLR_TEXT), alpha);
+            clr_back =  color (this.palette ("background-color", ".bubbles_bubble", CLR_BALL));
+            clr_fore = acolor (this.palette ("color"           , ".bubbles_bubble", CLR_TEXT), alpha);
         }
 
         circle (clr_fore, clr_back, rim, this.position.x, this.position.y, diameter);
         this.label (diameter - rim, clr_fore);
+    }
+
+    // gets the palette colour for the bubble: 1st = specified per bubble, 2nd = custom css, 3rd = default
+
+    this.palette = function (style, selector, def)
+    {
+        var value = def;
+        var found = false;
+
+        if ("css" in this.data)
+        {
+            if (selector in this.data ["css"])
+            {
+                if (style in this.data ["css"][selector])
+                {
+                    if (this.data ["css"][selector][style])
+                    {
+                        value = color (this.data ["css"][selector][style]).toString ();
+                        found = true;
+                    }
+                }
+            }
+        }
+
+        if (!found)  // no per bubble color specified
+        {
+            value = getStyle (style, selector, def);
+        }
+
+        return value;
     }
 
     // write the bubble label in the biggest font possible with the best line breaks
@@ -692,7 +722,8 @@ function Rect (top, left, bottom, right)
 function acolor (color, alpha)
 {
     color = color.replace (/\s/g, "");
-    color = color.replace (/rgb\((\d+),(\d+),(\d+)\)/, "rgba($1,$2,$3," + alpha + ")");
+    color = color.replace (/rgb\((\d+),(\d+),(\d+)\)/     , "rgba($1,$2,$3," + alpha + ")");
+    color = color.replace (/rgba\((\d+),(\d+),(\d+),\d+\)/, "rgba($1,$2,$3," + alpha + ")");
 
     return color;
 }
