@@ -99,6 +99,69 @@ If, for some reason, you don't want to reload a new page (for example you have a
 | --- | --- |
 | restart (datasource) | Live reloads the animation with a new data source |
 
+### Controlling Colors
+
+Within your code, you can control the color of the bubbles, tooltips and the world background by using CSS. If you do not specify any color information anywhere, the default color set will be used. This is documents further down within this readme.
+
+#### Overriding the Default Colors
+
+You can override the default bubble color scheme by specify your alternative colors in some CSS.
+
+```html
+<style type="text/css">
+   .bubbles_bubble       { background-color: #FAFAFA;   color: #000080;   }
+   .bubbles_bubble:hover { background-color: lightblue; color: indianred; }
+   .bubbles_world        { background-color: lightgrey; }
+</style>
+```
+
+The CSS is evaluated on every draw request, so you can even change the CSS dynamically in response to things like user actions or time. Here is a complete list of the CSS selectors you can use along with what each does:
+
+| Class | Selector | Description |
+| --- | --- | --- |
+| .bubbles_bubble | background-color | The background color of the bubble circle |
+| .bubbles_bubble | color | The color of the bubble text and bubble rim |
+| .bubbles_bubble:hover | background-color | The background color of the bubble circle, when the mouse is hovered over it |
+| .bubbles_bubble:hover | color | The color of the bubble text and bubble rim, when the mouse is hovered over it |
+| .bubbles_tooltip | background-color | The background color of the bubble tooltip |
+| .bubbles_tooltip | color | The color of the bubble tooltip text |
+| .bubbles_world | background-color | The background color of the canvas |
+
+You can specify any subset of these CSS selectors - any that you don't specify will fall back to the default color scheme.
+
+```json
+{
+    "DE": {"name": "Germany", "count": 3466},
+    "UK": {"name": "United Kingdom", "count": 2629,   /* united kingdom shows an example of per bubble colors specified within the source data */
+        "css": {
+            ".bubbles_bubble":       { "background-color": "DarkSeaGreen", "color": "#006400"},
+            ".bubbles_bubble:hover": { "background-color": "#000" , "color": "hotpink" } } },
+    "FR": {"name": "France", "count": 2463},
+}
+```
+
+The following CSS styles can be overridden in the source data.
+
+* .bubbles_bubble { background-color }
+* .bubbles_bubble { background-color }
+* .bubbles_bubble:hover { background-color }
+* .bubbles_bubble:hover { color }
+
+You can specify any subset of these CSS selectors - any that you don't specify will fall back to the default color scheme. You can apply per bubble coloring to any subset of your source data - any that you don't specify will fall back to the default color scheme.
+
+#### Precedence of Specified Color
+
+The following is the precedence of specified color on a per selector basis:
+
+1. Per bubble colors within the source data
+2. Any CSS that you have included
+3. The default coloring scheme
+
+#### Per Bubble Coloring
+
+If you want to specify a different color for specific (or even each) bubble, you can do that by including CSS information within the source data.
+
+
 ### Modifiable Constants
 
 There are several constants at the top of the main script file, which you can modify in order to change the behavior and appearance of the visualization.
@@ -118,7 +181,9 @@ The following constants control the font inside the bubbles:
 
 #### Colors
 
-The following constants control the colors of various things:
+The following constants control the default colors of various things:
+
+_Note: The best way to control the colors of bubbles is to use CSS - either at page level or within the source data. See the earlier section of this readme for more information about how to do that._
 
 | Constant | Default | Unit | Description |
 | --- | --- | --- | --- |

@@ -527,7 +527,7 @@ function Bubble (_key, _name, _data, _tip)
         this.label (diameter - rim, clr_fore);
     }
 
-    // gets the palette colour for the bubble: 1st = specified per bubble, 2nd = custom css, 3rd = default
+    // gets the palette color for the bubble: 1st = specified per bubble, 2nd = custom css, 3rd = default
 
     this.palette = function (style, selector, def)
     {
