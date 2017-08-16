@@ -59,7 +59,7 @@ The parameters for the Bubbles class are as follows:
 
 | Pos | Param | Description | Notes |
 | --- | --- | --- | --- |
-| 1 | data-source | The URL for the JSON list of data items | See below for examples |
+| 1 | data-source | The URL for the JSON list of data items or a local JSON array | See below for examples |
 | 2 | parent-control | The ID of the hosting parent control | Set to _null_ to fill the whole HTML body |
 | 3 | onselect&nbsp;(key,&nbsp;bubble) | The callback function for when a bubble is double-clicked | Set to _null_ for no action |
 | 4 | tooltip&nbsp;(key,&nbsp;bubble) | The callback function to return the bubble tooltip | Set to _null_ for no tooltip |
@@ -88,6 +88,16 @@ You can also include other data in the JSON structure. These won't be read by Bu
 ```
 
 In these examples and the project samples, we only show static JSON data. In a real system, you could dynamically generate your JSON dataset by reading values from a backing store or database.
+
+### Dynamic Data Sets
+
+The easiest way to have dynamic datasets is to simply reload a new page and point the newly created bubbles object at a new data source. _Remember, the data source that you point to does not need to be a static file. You could point to a server side end-point that dynamically creates the required JSON after loading data from a database_.
+
+If for some reason you don't want to reload a new page (for example you have a one-page app), you can still have dynamic data by calling the restart method with a new data source at any time.
+
+| Method | Description |
+| --- | --- |
+| restart (datasource) | Live reloads the animation with a new data source |
 
 ### Modifiable Constants
 
