@@ -15,6 +15,8 @@ Here are a couple of examples that you can use to understand how the visualizati
 * Click [here](https://pete-rai.github.io/p5js-bubbles/sample-bubbles.html?movies) to see an example based on _Top Grossing Movies_ (inflation adjusted)
 * Click [here](https://pete-rai.github.io/p5js-bubbles/sample-bubbles.html?populations) to see an example based on _Country by Population_ (2016 figures)
 
+_Note: The sample html included within this project contains useful examples of how to use the visualization. Do take a moment to read through this sample file to better understand how it all works._
+
 ### License
 
 This project is available under [the MIT license](https://github.com/pete-rai/p5js-bubbles/blob/master/LICENSE). _Please respect the terms of the license._
