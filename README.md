@@ -91,9 +91,9 @@ In these examples and the project samples, we only show static JSON data. In a r
 
 ### Dynamic Data Sets
 
-The easiest way to have dynamic datasets is to simply reload a new page and point the newly created bubbles object at a new data source. _Remember, the data source that you point to does not need to be a static file. You could point to a server side end-point that dynamically creates the required JSON after loading data from a database_.
+The easiest way to have dynamic datasets is to simply reload a new page and point the newly created bubbles object at a new data source. _The data source that you point to, does not need to be a static file_. You could point to a server side end-point which dynamically creates the required JSON after loading data from a database.
 
-If for some reason you don't want to reload a new page (for example you have a one-page app), you can still have dynamic data by calling the restart method with a new data source at any time.
+If, for some reason, you don't want to reload a new page (for example you have a one-page app), you can still have dynamic data by calling the restart method at any time and specifying a new data source .
 
 | Method | Description |
 | --- | --- |
