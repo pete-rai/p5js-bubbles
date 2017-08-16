@@ -31,14 +31,16 @@ const FONT_MIN  =  8;  // pt     - smallest allowed font
 const FONT_STEP =  2;  // >= 1   - font size steps, from big to small
 const FONT_PAD  =  8;  // pixels - some text padding within the bubble
 
-// colors [r, g, b] : controls colors of various things
+// default colors : controls colors of various things
+// note: changes are best done by setting your own css (see readme)
+// note: the "rgb(r,g,b)" in decimal format is important as it match the format of css returns from the document object
 
-const CLR_BACK = [230, 230, 250];  // background world color
-const CLR_TEXT = [  0, 102, 153];  // bubble text color
-const CLR_BALL = [250, 250, 250];  // background bubble color
-const CLR_HOVR = [100,   0,   0];  // hovered bubble text color
-const CLR_OVER = [255, 228, 225];  // hovered background bubble color
-const CLR_TIPS = [252, 240, 173];  // tooptip color
+const CLR_BACK = "rgb(230, 230, 250)";  // background world color
+const CLR_TEXT = "rgb(  0, 102, 153)";  // bubble text color
+const CLR_BALL = "rgb(250, 250, 250)";  // background bubble color
+const CLR_HOVR = "rgb(100,   0,   0)";  // hovered bubble text color
+const CLR_OVER = "rgb(255, 228, 225)";  // hovered background bubble color
+const CLR_TIPS = "rgb(252, 240, 173)";  // tooptip color
 
 // visuals : several factors that influence appearance
 
@@ -123,7 +125,7 @@ function Bubbles (_source, _parent, _onselect, _tiptext)
         this.init ();
         var self = this;
 
-        if (typeof this.source === 'string')  // assume its a url
+        if (typeof this.source === "string")  // assume its a url
         {
             this.datums = loadJSON (this.source, function () { self.prepare (); });  // async loads the source data from external source
         }
@@ -225,7 +227,7 @@ function Bubbles (_source, _parent, _onselect, _tiptext)
 
     this.draw = function ()
     {
-        background (color (CLR_BACK));
+        background (color (getStyle ("background-color", ".bubbles_world", CLR_BACK)));
 
         if (this.lines.length)  // we will eventually run out of new data
         {
@@ -507,8 +509,19 @@ function Bubble (_key, _name, _data, _tip)
         var depth    = (bubbles.max_occur - this.occurs) / bubbles.max_occur;
         var alpha    = (1 - depth) * VIZ_ALPHA_DEPTH + (1 - VIZ_ALPHA_DEPTH);
         var hilight  = bubbles.dragging ? bubbles.dragging == this.key : this.hovered ();
-        var clr_back = hilight ?  color (CLR_OVER)        :  color (CLR_BALL)
-        var clr_fore = hilight ? acolor (CLR_HOVR, alpha) : acolor (CLR_TEXT, alpha);
+        var clr_back = null;
+        var clr_fore = null;
+
+        if (hilight)
+        {
+            clr_back =  color (getStyle ("background-color", ".bubbles_bubble:hover", CLR_OVER));
+            clr_fore = acolor (getStyle ("color"           , ".bubbles_bubble:hover", CLR_HOVR), alpha);
+        }
+        else
+        {
+            clr_back =  color (getStyle ("background-color", ".bubbles_bubble", CLR_BALL));
+            clr_fore = acolor (getStyle ("color"           , ".bubbles_bubble", CLR_TEXT), alpha);
+        }
 
         circle (clr_fore, clr_back, rim, this.position.x, this.position.y, diameter);
         this.label (diameter - rim, clr_fore);
@@ -586,8 +599,11 @@ function Bubble (_key, _name, _data, _tip)
             var width  = TIP_MARGIN + TIP_MARGIN + size;
             var height = TIP_MARGIN + TIP_MARGIN + TIP_POINTSZ;
 
-            rectangle (0, color (CLR_TIPS), 1, left, top, width, height);
-            write (TIP_POINTSZ, 0, left + width / 2 + 1, top + height / 2 + 1, CENTER, CENTER, this.tip);
+            var clr_fore = color (getStyle ("color"           , ".bubbles_tooltip", "rgb(0,0,0)"));
+            var clr_back = color (getStyle ("background-color", ".bubbles_tooltip", CLR_TIPS    ));
+
+            rectangle (0, clr_back, 1, left, top, width, height);
+            write (TIP_POINTSZ, clr_fore, left + width / 2 + 1, top + height / 2 + 1, CENTER, CENTER, this.tip);
         }
     }
 }
@@ -671,11 +687,14 @@ function Rect (top, left, bottom, right)
 
 // ---  some useful wrappers around common processing primitive combinations
 
-// makes a color from an rgb array and an alpha value
+// makes an alpha-blended color from an "rgb(r,g,b)" and an alpha value
 
-function acolor (rgb, alpha)
+function acolor (color, alpha)
 {
-    return "rgba(" + rgb.concat ([alpha]).join () + ")";
+    color = color.replace (/\s/g, "");
+    color = color.replace (/rgb\((\d+),(\d+),(\d+)\)/, "rgba($1,$2,$3," + alpha + ")");
+
+    return color;
 }
 
 // draws a rectangle of a given size and color
@@ -814,6 +833,38 @@ function cleave (text)
     }
 
     return text;
+}
+
+// returns the value of a css style for a given selector
+
+function getStyle (style, selector, def)
+{
+    var value  = def || null;
+    var sheets = document.styleSheets;
+
+    for (var s = 0, sl = sheets.length; s < sl; s++)
+    {
+        var sheet = sheets [s];
+
+        if (sheet.cssRules && !sheet.disabled)
+        {
+            for (var r = 0, rl = sheet.cssRules.length; r < rl; r++)
+            {
+                var rule = sheet.cssRules [r];
+
+                if (rule.selectorText && rule.selectorText.split (",").indexOf (selector) !== -1)
+                {
+                    if (rule.style [style])
+                    {
+                        value = rule.style [style];
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    return value;
 }
 
 // --- this is the end, beautiful friend...

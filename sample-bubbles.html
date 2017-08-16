@@ -11,9 +11,15 @@
     <title>p5js-bubbles | sample |&nbsp;</title>
     <meta charset="UTF-8">
     <meta name=viewport content="width=device-width, initial-scale=1">
-    <style  type="text/css">
+    <style type="text/css">
           body { padding: 0px; margin: 0px; overflow: hidden; }
       #restart { font-size: 12pt; position: absolute; left: 5px; top: 5px; z-index: 99; }
+    </style>
+    <!-- the following css is an example of custom colouring, remove it to return to default colouring -->
+    <style type="text/css">
+       .bubbles_bubble       { background-color: #FAFAFA;   color: #000080;   }
+       .bubbles_bubble:hover { background-color: lightblue; color: indianred; }
+       .bubbles_world        { background-color: lightgrey; }
     </style>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.8/p5.min.js"></script>
     <script type="text/javascript" src="bubbles.p5.js"></script>
