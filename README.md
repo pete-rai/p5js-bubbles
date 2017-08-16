@@ -101,7 +101,7 @@ If, for some reason, you don't want to reload a new page (for example you have a
 
 ### Controlling Colors
 
-Within your code, you can control the color of the bubbles, tooltips and the world background by using CSS. If you do not specify any color information anywhere, the default color set will be used. This is documents further down within this readme.
+Within your code, you can control the color of the bubbles, tooltips and the world background by using CSS. If you do not specify any color information anywhere, the default color set will be used. The defaults are documented further down within this readme.
 
 #### Overriding the Default Colors
 
@@ -121,17 +121,17 @@ The CSS is evaluated on every draw request, so you can even change the CSS dynam
 | --- | --- | --- |
 | .bubbles_bubble | background-color | The background color of the bubble circle |
 | .bubbles_bubble | color | The color of the bubble text and bubble rim |
-| .bubbles_bubble:hover | background-color | The background color of the bubble circle, when the mouse is hovered over it |
-| .bubbles_bubble:hover | color | The color of the bubble text and bubble rim, when the mouse is hovered over it |
+| .bubbles_bubble:hover | background-color | The background color of the bubble circle - when the mouse is hovered over it |
+| .bubbles_bubble:hover | color | The color of the bubble text and bubble rim - when the mouse is hovered over it |
 | .bubbles_tooltip | background-color | The background color of the bubble tooltip |
-| .bubbles_tooltip | color | The color of the bubble tooltip text |
+| .bubbles_tooltip | color | The color of the text on the bubble tooltip |
 | .bubbles_world | background-color | The background color of the canvas |
 
 You can specify any subset of these CSS selectors - any that you don't specify will fall back to the default color scheme.
 
 #### Per Bubble Coloring
 
-If you want to specify a different color for specific (or even each) bubble, you can do that by including CSS information within the source data.
+If you want to specify a different color for specific (or even each) bubble, you can do that by including CSS information within the source data as below:
 
 ```json
 {
@@ -144,18 +144,18 @@ If you want to specify a different color for specific (or even each) bubble, you
 }
 ```
 
-The following CSS styles can be overridden in the source data.
+The following CSS styles can be overridden within the source data.
 
 * .bubbles_bubble { background-color }
-* .bubbles_bubble { background-color }
+* .bubbles_bubble { color }
 * .bubbles_bubble:hover { background-color }
 * .bubbles_bubble:hover { color }
 
 You can specify any subset of these CSS selectors - any that you don't specify will fall back to the default color scheme. You can apply per bubble coloring to any subset of your source data - any that you don't specify will fall back to the default color scheme.
 
-#### Precedence of Specified Color
+#### Precedence of Specified Colors
 
-The following is the precedence of specified color on a per selector basis:
+The following is the precedence of specified colors on a per selector basis:
 
 1. Per bubble colors within the source data
 2. Any CSS that you have included
