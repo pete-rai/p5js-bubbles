@@ -191,7 +191,7 @@ function Bubbles (_source, _parent, _onselect, _tiptext)
 
                 for (var i = 0 ; i < count ; i++)
                 {
-                    append (this.lines, {key  : item,
+                    append (this.lines, {key  : '_' + item,  // we add the '_' in order to not clash with javascript methods when we call 'key in object'
                                          name : this.datums [item].name,
                                          data : this.datums [item],
                                          tip  : tooltip});
@@ -312,7 +312,7 @@ function Bubbles (_source, _parent, _onselect, _tiptext)
     {
         if (this.onselect && this.last_over)
         {
-            this.onselect (this.last_over, this.bubbles [this.last_over].data);  // callback
+            this.onselect (this.last_over.substr (1), this.bubbles [this.last_over].data);  // callback - note we remove the scoping '_' from the key
         }
     }
 
