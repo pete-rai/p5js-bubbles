@@ -209,7 +209,7 @@ The following constants control factors that influence appearance:
 | VIZ_ALPHA_DEPTH | 0.60 | >0&nbsp;&&nbsp;<=1 | The depth of fading of small bubbles, bigger num = more fading |
 | VIZ_CROWDEDNESS | 0.70 | >&nbsp;0 | How crowded the world space is, bigger = more crowded (0.78 = &pi;/4 is the ratio area of square to circle, which is about optimal) |
 | VIZ_FRAME_RATE | 50 | >1&nbsp;&&nbsp;<&nbsp;60 | The frame rate and hence smoothness of animation, bigger = smoother, but slower overall |
-| VIZ_FONT_RECALC | 10 | >=&nbsp;1 | How much the radius must change before a font recalculation (prevents font 'flickering') |
+| VIZ_FONT_RECALC | 10 | >=&nbsp;1 | How much the radius must change before a font recalculation (prevents font 'flickering'). See also the note on performance at the top of this readme. |
 
 #### Tooltips
 
