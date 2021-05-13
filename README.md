@@ -17,7 +17,7 @@ Here are a couple of examples that you can use to understand how the visualizati
 
 _Note: The sample html included within this project contains useful examples of how to use the visualization. Do take a moment to read through this sample file to better understand how it all works._
 
-> Important Note on Performance: I discovered that my script can be slow when the bubble labels are long strings. If this is the case for you, then you can probably speed things up by playing with the constant ```VIZ_FONT_RECALC``` at the top if my script. The higher you set this, the faster things will become - as it cuts down on costly font recalculating. It is currently set to 10px, which is very low. The danger is that, if its too high, you might not get the best fitted font your the bubble. Anyways, do play with this setting if you find performance is an issue for you.
+> Important Note on Performance: I discovered that my script can be slow when the bubble labels are long strings. If this is the case for you, then you can probably speed things up by playing with the constant ```VIZ_FONT_RECALC``` at the top of the script. The higher you set this, the faster things will become - as it cuts down on costly font recalculating. It is currently set to 10px, which is very low. The danger is that, if its too high, you might not get the best fitted font for each bubble. Anyways, do play with this setting if you find performance is an issue for you.
 
 ### License
 
